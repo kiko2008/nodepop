@@ -1,0 +1,133 @@
+[{
+    "name": "tablet 1",
+    "sale": true,
+    "price": 230.15,
+    "photo": "../../images/mobile1.jpg",
+    "tags": ["mobile"]
+},
+{
+    "name": "iphone X",
+    "sale": false,
+    "price": 50.00,
+    "photo": "../../images/mobile2.jpg",
+    "tags": ["mobile"]
+},
+{
+    "name": "telefono movil 3",
+    "sale": true,
+    "price": 230.15,
+    "photo": "../../images/mobile3.jpg",
+    "tags": ["mobile"]
+},
+{
+    "name": "telefono movil 4",
+    "sale": true,
+    "price": 330.15,
+    "photo": "../../images/mobile4.jpg",
+    "tags": ["mobile"]
+},
+{
+    "name": "telefono movil 5",
+    "sale": false,
+    "price": 230.15,
+    "photo": "../../images/mobile5.jpg",
+    "tags": ["mobile"]
+},
+{
+    "name": "cafetera",
+    "sale": true,
+    "price": 30.15,
+    "photo": "../../images/lifestyle1.jpg",
+    "tags": ["lifestyle"]
+},
+{
+    "name": "zapatillas",
+    "sale": false,
+    "price": 130.15,
+    "photo": "../../images/lifestyle2.jpg",
+    "tags": ["lifestyle"]
+},
+{
+    "name": "colonia",
+    "sale": true,
+    "price": 230.15,
+    "photo": "../../images/lifestyle3.jpg",
+    "tags": ["lifestyle"]
+},
+{
+    "name": "revista",
+    "sale": true,
+    "price": 230.15,
+    "photo": "../../images/lifestyle6.jpg",
+    "tags": ["lifestyle"]
+},
+{
+    "name": "moto campo",
+    "sale": true,
+    "price": 2300.15,
+    "photo": "../../images/motor1.jpg",
+    "tags": [ "lifestyle", "motor"]
+},
+{
+    "name": "moto campo",
+    "sale": true,
+    "price": 3430.15,
+    "photo": "../../images/motor2.jpg",
+    "tags": [ "lifestyle", "motor"]
+},
+{
+    "name": "mustang",
+    "sale": false,
+    "price": 23000.15,
+    "photo": "../../images/motor4.jpg",
+    "tags": ["motor"]
+},
+{
+    "name": "clasico",
+    "sale": true,
+    "price": 10300.15,
+    "photo": "../../images/motor6.jpg",
+    "tags": ["motor"]
+},
+{
+    "name": "mercedes",
+    "sale": true,
+    "price": 50000.15,
+    "photo": "../../images/motor10.jpg",
+    "tags": ["motor"]
+},
+{
+    "name": "descapotable",
+    "sale": true,
+    "price": 230000,
+    "photo": "../../images/motor11.jpg",
+    "tags": ["lifestyle", "motor"]
+},
+{
+    "name": "furgoneta",
+    "sale": false,
+    "price": 6030.15,
+    "photo": "../../images/motor20.jpg",
+    "tags": ["work", "motor"]
+},
+{
+    "name": "casco",
+    "sale": true,
+    "price": 10.51,
+    "photo": "../../images/work1.jpg",
+    "tags": ["lifestyle", "motor"]
+},
+{
+    "name": "compresor",
+    "sale": false,
+    "price": 1030.15,
+    "photo": "../../images/work2.jpg",
+    "tags": ["work"]
+},
+{
+    "name": "mobiliario de oficina",
+    "sale": true, 
+    "price": 23000.15,
+    "photo": "../../images/work3.jpg",
+    "tags": ["work"]
+}]
