@@ -6,8 +6,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const { isAPI } = require('./lib/utils');
-
 let app = express();
 
 // view engine setup
@@ -44,10 +42,6 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res) {
 	res.status(err.status || 500);
-	if(isAPI(req)) {
-		res.json({ success: false, error: err.message });
-		return;
-	}
 
 	// set locals, only providing error in development
 	res.locals.message = err.message;
