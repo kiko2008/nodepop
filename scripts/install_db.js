@@ -1,29 +1,71 @@
 'use strict';
 
-// connect to a bbdd
 require('dotenv').config();
-const file = require('fs');
+
+const readline = require('readline');
+
+const products = require('../data/products.json');
+const users = require('../data/users.json').users;
 const conn = require('../lib/connectMongo');
-const ProductModel = require('../models/Product');
+const Product = require('../models/product');
+const User = require('../models/user');
 
-(async() => {
-	try {    
-		await conn.dropDatabase();
-	} catch (err) {   
-		return "Error in drop db";
-	}
+conn.once('open', async () => {
+  try {
+    const response = await askUser('Estas seguro que quieres borrar los contenidos de la base de datos? (no)');
 
-	file.readFile('./scripts/products.json', 'UTF-8' ,(err, data) => {
-		if (err) {
-			throw err;
-		}		
-		const arrayProducts = JSON.parse(data);
-		ProductModel.insertMany(arrayProducts, (error) => {
-			if(error) {
-				return new Error('Error in inserts in bbdd');
-			}
-			console.info('BBDD initialize succesfully');
-			conn.close();
-		});
-	});
-})().catch(err => console.error(err));
+    if (response.toLowerCase() !== 'yes') {
+      console.log('Proceso abortado');
+      process.exit();
+    }
+
+    await initProducts(products);
+    await initUsers(users);
+	
+	process.exit();
+
+  } catch (err) {
+    console.log('Hubo un error', err);
+    process.exit(1);
+  }
+});
+
+function askUser(question) {
+  return new Promise((resolve, reject) => {
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+
+    rl.question(question,
+      function(answer) {
+        rl.close();
+        resolve(answer);
+      }
+    );
+  });
+}
+
+async function initProducts(products) {
+  // eliminar los productos actuales
+  const deleted = await Product.deleteMany();
+  console.log(`Eliminados ${deleted.n} productos.`);
+
+  // cargar los nuevos productos
+  const inserted = await Product.insertMany(products);
+  console.log(`Insertados ${inserted.length} productos.`);
+}
+
+async function initUsers(users) {
+  // eliminar los usuarios actuales
+  const deleted = await User.deleteMany();
+  console.log(`Eliminados ${deleted.n} usuarios.`);
+  
+  for (let i = 0; i < users.length; i++) {
+    users[i].password = await User.hashPassword(users[i].password);
+  }
+
+  // cargar los nuevos usuarios
+  const inserted = await User.insertMany(users);
+  console.log(`Insertados ${inserted.length} usuarios.`);
+}
