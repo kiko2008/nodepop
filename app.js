@@ -6,6 +6,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
+const { isAPI } = require('./lib/utils');
+
 let app = express();
 
 // view engine setup
@@ -34,20 +36,39 @@ app.use('/', require('./controllers/productRouter'));
 // app title
 app.locals.titulo='Nodepop';
 
+/**
+ * Application web routes
+ */
+//app.use('/',        require('./routes/index'));
+//app.use('/about',   require('./routes/about'));
+//app.use('/lang',    require('./routes/lang'));
+//app.use('/privado', require('./routes/privado'));
+// usamos el estilo de Controladores para estructurar las rutas
+//app.get('/login', loginController.index);
+//app.post('/login', loginController.post);
+//app.get('/logout', loginController.logout);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-	next(createError(404));
+    next(createError(404));
+    //next();
 });
 
 // error handler
-app.use(function(err, req, res) {
-	res.status(err.status || 500);
+app.use(function(err, req, res, next) {
 
-	// set locals, only providing error in development
-	res.locals.message = err.message;
-	res.locals.error = req.app.get('env') === 'development' ? err : {};
-	// render the error page
-	res.render('error');
+    res.status(err.status || 500);
+
+    if (isAPI(req)) {
+        res.json({ success: false, error: err.message });
+        return;
+    }
+
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // render the error page
+    res.render('error');
 });
 
 module.exports = app;
