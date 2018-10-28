@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Francisco Fernandez">
+    <meta name="description" content="Nodepop">
+    <title><%= titulo %></title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700|Open+Sans:400,700,800" rel="stylesheet">    
+    <link rel="stylesheet" href="/stylesheets/reset.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">    
+</head>
+
+<body>
+    <div class="top-wrapper">
+        <header>
+            <h1 class="h1-main"><%= titulo %></h1>
+            <nav>            
+                <ul class="navbar-wrapper">
+                    <li >
+                        <% getLocales().forEach( lang => { %>
+                            <li >
+                                <a href="/lang/<%= lang %>"><%= lang.toUpperCase() %></a>&nbsp;
+                            </li>
+                        <% }) %>  
+                    <li >
+                        <a href="/"><%= __('Inicio') %></a>
+                    </li>
+                
+                        <li >
+                            <a class="button-action-header" href="/loginJWT">Conectarse</a>
+                        </li>
+                
+                        <li >
+                            <a href="/products">Productos</a>
+                        </li>
+                        <li >
+                            <a class="button-action-header" href="/logout">Desconectarse</a>
+                        </li>
+                
+                </ul>                  
+            </nav>
+        </header>
+    </div>  

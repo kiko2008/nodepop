@@ -1,0 +1,26 @@
+<% include header.html %>
+
+<section id="searchResult">       
+    <div class="content-wrapper">			
+        <% if (tags !== null) {%>
+            <span>Tags disponibles : [</span><%= tags %><span>]</span>			
+        <%}%>
+        <% if (items !== null) {%>
+            <% if (items.length === 0) {%>
+                <span>No hay productos que coincidan con la busqueda</span>
+            <%} else {%>    
+                <% items.forEach((item) => { %>
+                    <article>
+                        <img src="<%= item.photo %>">  
+                        <div>
+                            <p><%= item.name.charAt(0).toUpperCase() + item.name.slice(1) %></p>
+                            <p><%= (item.sale)?'Venta':'Compra' %> - <%= item.price %><span>€</span></p>
+                            <p><span>[</span><%= item.tags %><span>]</span></p>
+                        </div>            
+                    </article> 
+                <% }) %>
+            <%}%>             
+        <%}%>
+    </div>
+</section>
+<% include footer.html %>
