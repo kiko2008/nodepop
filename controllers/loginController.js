@@ -29,8 +29,7 @@ class LoginController {
 
       if (!usuario || !await bcrypt.compare( password, usuario.password)) {
         res.locals.email = email;
-        //res.locals.error = res.__('Invalid credentials');
-        res.locals.error = 'Invalid credentials';
+        res.locals.error = 'invalid_credentials';
         res.render('login');
         return;
       }
@@ -40,7 +39,7 @@ class LoginController {
 
       // usuario encontrado y password ok
       // ...
-      res.redirect(namedRoutes.privado);
+      res.redirect(namedRoutes.private);
 
     } catch(err) {
       next(err);
@@ -66,7 +65,7 @@ class LoginController {
       // usuario encontrado y password ok
       // no meter instancias de mongoose en el token!
       jwt.sign({ _id: usuario._id }, process.env.JWT_SECRET, {
-        expiresIn: '1m'
+        expiresIn: '2d'
       }, (err, token) => {
         if (err) {
           next(err);

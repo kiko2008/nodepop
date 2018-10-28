@@ -5,15 +5,17 @@
     <div class="login-wrapper">
           <form method="POST">
             <div class="form-group">
-              <label for="email">Direccion email</label>
-              <input type="email" id="email" placeholder="Enter email" name="email" value="<%= email %>">
+              <label for="email"><%= __('Direccion email') %></label>
+              <input type="email" id="email" placeholder="<%= __('Introduzca email') %>" name="email" value="<%= email %>">
             </div>
             <div class="form-group">
-              <label for="password">Contraseña</label>
-              <input type="password" id="password" placeholder="Password" name="password">
+              <label for="password"><%= __('Contrasena') %></label>
+              <input type="password" id="password" placeholder="<%= __('Introduzca contrasena') %>" name="password">
             </div>
-            <button type="submit" class="btn btn-primary">Enviar</button>
-            <div class="error"><%= error %></div>
+            <input type="submit" value="<%= __('Enviar') %>"><%= __('Enviar') %></button>
+            <% if(error === 'invalid_credentials') { %>
+              <div class="error"><%= __('Credenciales erroneas') %></div>
+            <% } %>
           </form>
     </div>
   </div>

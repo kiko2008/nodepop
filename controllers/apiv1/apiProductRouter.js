@@ -4,9 +4,13 @@ const express = require('express');
 const router = express.Router();
 const ProductModel = require('../../models/product');
 const { setQueryProducts } = require('../../lib/utils');
+const jwtAuth = require('../../lib/jwtAuth');
+
+// Protegemos todo el middleware con JWT Auth
+router.use(jwtAuth());
 
 /* GET all items will be showed. */
-router.get('/products', async (req, res) => {	
+router.post('/products', async (req, res) => {	
 	let queryProduct = setQueryProducts(req);
 	try {    
 		const responseResult = await ProductModel.findProducts(queryProduct, req.query.skip, req.query.limit, req.query.sort);		
@@ -17,7 +21,7 @@ router.get('/products', async (req, res) => {
 });
 
 /* GET all diferent tags will be showed. With async/await*/
-router.get('/tags', async (req, res) => {
+router.post('/tags', async (req, res) => {
 	try {
 		const responseResult = await ProductModel.findTags();
 		res.json({ success: true, result: responseResult });
