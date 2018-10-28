@@ -19,27 +19,36 @@
             <h1 class="h1-main"><%= titulo %></h1>
             <nav>            
                 <ul class="navbar-wrapper">
-                    <li >
+                   
                         <% getLocales().forEach( lang => { %>
                             <li >
-                                <a href="/lang/<%= lang %>"><%= lang.toUpperCase() %></a>&nbsp;
+                                <% if(lang === 'es') { %>
+                                    <a href="/lang/<%= lang %>">
+                                        <img src="/flagsIcons/spain.png" class="icon-image" alt="<%= __('Icono bandera españa') %>"></img>
+                                    </a>
+                                <% } %>
+                                <% if(lang === 'en') { %>
+                                    <a href="/lang/<%= lang %>">
+                                        <img src="/flagsIcons/united_states.png" class="icon-image" alt="<%= __('Icono bandera estados unidos') %>"></img>
+                                    </a>
+                                <% } %>                               
                             </li>
                         <% }) %>  
                     <li >
                         <a href="/"><%= __('Inicio') %></a>
                     </li>
-                
+                    <% if (!session.authUser) { %>
                         <li >
-                            <a class="button-action-header" href="/loginJWT">Conectarse</a>
+                            <a class="button-action-header" href="/login"><%= __('Conectarse') %></a>
                         </li>
-                
+                    <% } else { %>
                         <li >
-                            <a href="/products">Productos</a>
+                            <a href="/private"><%= __('Productos') %></a>
                         </li>
                         <li >
-                            <a class="button-action-header" href="/logout">Desconectarse</a>
+                            <a class="button-action-header" href="/logout"><%= __('Desconectarse') %></a>
                         </li>
-                
+                    <% } %>
                 </ul>                  
             </nav>
         </header>

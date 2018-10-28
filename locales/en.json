@@ -1,0 +1,15 @@
+{
+	"Inicio": "Home",
+	"Conectarse": "Login",
+	"Productos": "Products",
+	"Desconectarse": "Logout",
+	"Mensaje publico": "You are not buying and selling items in Nodepop yet?, Come on!, Start saving right now",
+	"Icono bandera estados unidos": "United States flag icon",
+	"Icono bandera españa": "Spain flag icon",
+	"Direccion email": "Email",
+	"Introduzca email": "Enter email",
+	"Contrasena": "Password",
+	"Introduzca contrasena": "Enter password",
+	"Enviar": "Send",
+	"Credenciales erroneas": "Invalid credentials"
+}
