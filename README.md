@@ -1,4 +1,6 @@
-# NodePop
+<img src="https://raw.githubusercontent.com/kiko2008/nodepop/master/resources/logoNP.png" height="180" alt="Nodepop" />
+
+[![npm version](https://badge.fury.io/js/nodepop.svg)](https://badge.fury.io/js/nodepop)
 
 El desarrollo es un API y una pagina web para mostrar el funcionamiento de una tienda de artículos de segunda mano desarrollada con Node.js, Express.js, EJS y MongoDB.
 
