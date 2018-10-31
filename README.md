@@ -149,7 +149,7 @@ Si necesitamos usar alguna imagen nueva deberíamos introducirla en este directo
 
 ## Version
 
- V1.0
+ V2.0
 
 ## License
 [![CC0](https://licensebuttons.net/p/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
