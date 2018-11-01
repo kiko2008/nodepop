@@ -184,6 +184,7 @@ section .content-wrapper, nav.content-wrapper {
   right: 0;
   top: 0;
   width: 100%;
+  max-height: 168px;
 }
 
 .content-wrapper article div {  

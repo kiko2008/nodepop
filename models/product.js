@@ -19,10 +19,10 @@ productSchema.statics.findTags = function() {
 	return ProductModel.find().distinct('tags').exec();	
 };
 
-productSchema.statics.saveProduct = async function(req) {
+productSchema.statics.saveProduct = async function(productData) {
 	
 	try {
-		let newProduct = new ProductModel(req.body);
+		let newProduct = new ProductModel(productData);
 		// add path for image
 		newProduct.photo = '../../images/' + newProduct.photo;
 		const data = await newProduct.save();
