@@ -165,7 +165,7 @@ Si la llamada se realiza con un token caducado la respuesta sera un status 401 c
 
     }
 ```
-Si el token informado en la petición es correcto el endpoint devuelve todos los productos en formato json.
+Si el token informado en la petición es correcto, el endpoint devuelve todos los productos en formato json.
 
 Otro ejemplo de url de consulta, con todos los parámetros del filtro, podría ser la siguiente:
 ```bash
@@ -232,7 +232,7 @@ cuando el endpoint de creación de productos llame a este servicio se creara un 
 
 ### Web Nodepop
 
-Nodepop es una web de comercialización de artículos de segunda mano localizada a Ingles y Español.
+Nodepop es una web de comercialización de artículos de segunda mano localizada a **Ingles** y **Español**.
 
 
 
@@ -251,7 +251,7 @@ Esto mostrara la home de la web, donde tendremos la posibilidad de autenticarnos
 
 Al pulsar el boton de login podremos ver la pantalla de login donde podremos autenticarnos en la aplicación.
 
-En el scritp de inicialización de la bd se ha creado el usuario **user@example.com**/**1234**, para poder autenticarnos en la aplicación y realizar las pruebas que necesitemos.
+En el scritp de inicialización de la bd se ha creado el usuario **user@example.com/1234**, para poder autenticarnos en la aplicación y realizar las pruebas que necesitemos.
 
 
 
