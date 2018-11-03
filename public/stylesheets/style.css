@@ -8,6 +8,8 @@
   --color-white: rgb(255, 255, 255);
   --color-border-card: rgb(244, 244, 244);  
   --color-header-footer: rgb(45, 43, 43);  
+  --color-secondary: #39A9DB;
+  --color-red: red;
 }
 
 body {
@@ -72,8 +74,8 @@ nav{
 }
 
 .button-action-header {
-  color: #39A9DB;
-  border: 2px solid #39A9DB;
+  color: var(--color-secondary);
+  border: 2px solid var(--color-secondary);
   border-radius: 5px;
   padding: 5px 5px;
   background-color: transparent;
@@ -81,7 +83,7 @@ nav{
 }
 
 .important {
-  color: #39A9DB;
+  color: var(--color-secondary);
   font-weight: bold;
 }
 
@@ -114,22 +116,22 @@ label {
   width: 100%;
   margin-bottom: 10px;
   text-transform: uppercase;
-  color: #39A9DB;
+  color: var(--color-secondary);
 }
 
 input {
   display: block;
   width: 100%;
   border: 0;
-  border-bottom: solid 1px #39A9DB;
+  border-bottom: solid 1px var(--color-secondary);
   margin-bottom: 15px;
 }
 
 
 input[type="submit"]  {
   cursor: pointer;
-  color: #39A9DB;
-  border: 2px solid #39A9DB;
+  color: var(--color-secondary);
+  border: 2px solid var(--color-secondary);
   border-radius: 5px;
   padding: 4px 4px;
   background-color: transparent;
@@ -141,7 +143,7 @@ input[type="submit"]  {
 }
 
 .error {
-  color: red;
+  color: var(--color-red);
   font-weight: bolder;
   text-align: center;
 }

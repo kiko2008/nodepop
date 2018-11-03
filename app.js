@@ -9,6 +9,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
 const { isAPI } = require('./lib/utils');
+const namedRoutes = require('./lib/namedRoutes');
 const loginController = require('./controllers/loginController');
 
 let app = express();
@@ -41,25 +42,23 @@ require('./lib/connectMongo');
 require('./models/product');
 
 // For api ads
-app.post('/loginJWT', loginController.postJWT);
+app.post('/apiv1/loginJWT', loginController.postJWT);
 app.use('/apiv1', require('./controllers/apiv1/apiProductRouter'));
 
-/**
- * Inicializamos/cargamos la sesión del usuario que hace la petición
- */
+// initialize / load the session of the user who makes the request
 app.use(session({
     name: 'nodepop-session',
     secret: 'hsd fkljadskjfhadssldjkh adksfhsd897sd8yf87w3yrih7wdehiuwehrfiu',
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 2 * 24 * 60 * 60 * 1000, httpOnly: true }, // a los dos días de inactividad caduca
+    cookie: { maxAge: 2 * 24 * 60 * 60 * 1000, httpOnly: true }, // two days validity
     store: new MongoStore({
-      // como conectarse a la base de datos
-      url: process.env.MONGO_CONNECTION
+        // How to connect to db
+        url: process.env.MONGO_CONNECTION
     })
 }));
 
-// auth helper middleware - dar acceso a sesión desde las vistas
+// auth helper middleware - for access to session from views
 app.use((req, res, next) => {
     res.locals.session = req.session;
     next();
@@ -68,39 +67,36 @@ app.use((req, res, next) => {
 /**
  * Application web routes
  */
-app.use('/',        require('./controllers/index'));
-app.use('/lang',    require('./controllers/lang'));
-app.get('/private', require('./controllers/productRouter'));
-// usamos el estilo de Controladores para estructurar las rutas
-app.get('/login', loginController.index);
-app.post('/login', loginController.post);
-app.get('/logout', loginController.logout);
+app.use(namedRoutes.home,    require('./controllers/index'));
+app.use(namedRoutes.lang,    require('./controllers/lang'));
+app.get(namedRoutes.private, require('./controllers/productRouter'));
+app.get(namedRoutes.login,   loginController.index);
+app.post(namedRoutes.login,  loginController.post);
+app.get(namedRoutes.logout,  loginController.logout);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    next(createError(404));
+    next(createError(404));
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-
     // error de validación
     if (err.name === "TokenExpiredError" || err.message==="no token provided") {
-        err.status = 401;       
+        err.status = 401;           
+    }
+    res.status(err.status || 500);
+
+    if (isAPI(req)) {
+        res.json({ success: false, error: err.message });
+        return;
     }
 
-    res.status(err.status || 500);
-
-    if (isAPI(req)) {
-        res.json({ success: false, error: err.message });
-        return;
-    }
-
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get('env') === 'development' ? err : {};
-    // render the error page
-    res.render('error');
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // render the error page
+    res.render('error');
 });
 
 module.exports = app;

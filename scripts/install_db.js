@@ -11,61 +11,60 @@ const Product = require('../models/product');
 const User = require('../models/user');
 
 conn.once('open', async () => {
-  try {
-    const response = await askUser('Estas seguro que quieres borrar los contenidos de la base de datos? (no)');
+    try {
+        const response = await askUser('Estas seguro que quieres borrar los contenidos de la base de datos? (no)');
+        if (response.toLowerCase() !== 'yes') {
+            console.log('Proceso abortado');
+            process.exit();
+        }
 
-    if (response.toLowerCase() !== 'yes') {
-      console.log('Proceso abortado');
-      process.exit();
-    }
-
-    await initProducts(products);
-    await initUsers(users);
+        await initProducts(products);
+        await initUsers(users);
 	
-	process.exit();
+        process.exit();
 
-  } catch (err) {
-    console.log('Hubo un error', err);
-    process.exit(1);
-  }
+    } catch (err) {
+        console.log('Hubo un error', err);
+        process.exit(1);
+    }
 });
 
 function askUser(question) {
-  return new Promise((resolve, reject) => {
-    const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout
-    });
+    return new Promise((resolve, reject) => {
+        const rl = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout
+        });
 
-    rl.question(question,
-      function(answer) {
-        rl.close();
-        resolve(answer);
-      }
-    );
-  });
+        rl.question(question,
+            function(answer) {
+                rl.close();
+                resolve(answer);
+            }
+        );
+    });
 }
 
 async function initProducts(products) {
-  // eliminar los productos actuales
-  const deleted = await Product.deleteMany();
-  console.log(`Eliminados ${deleted.n} productos.`);
+    // eliminar los productos actuales
+    const deleted = await Product.deleteMany();
+    console.log(`Eliminados ${deleted.n} productos.`);
 
-  // cargar los nuevos productos
-  const inserted = await Product.insertMany(products);
-  console.log(`Insertados ${inserted.length} productos.`);
+    // cargar los nuevos productos
+    const inserted = await Product.insertMany(products);
+    console.log(`Insertados ${inserted.length} productos.`);
 }
 
 async function initUsers(users) {
-  // eliminar los usuarios actuales
-  const deleted = await User.deleteMany();
-  console.log(`Eliminados ${deleted.n} usuarios.`);
+    // eliminar los usuarios actuales
+    const deleted = await User.deleteMany();
+    console.log(`Eliminados ${deleted.n} usuarios.`);
   
-  for (let i = 0; i < users.length; i++) {
-    users[i].password = await User.hashPassword(users[i].password);
-  }
+    for (let i = 0; i < users.length; i++) {
+        users[i].password = await User.hashPassword(users[i].password);
+    }
 
-  // cargar los nuevos usuarios
-  const inserted = await User.insertMany(users);
-  console.log(`Insertados ${inserted.length} usuarios.`);
+    // cargar los nuevos usuarios
+    const inserted = await User.insertMany(users);
+    console.log(`Insertados ${inserted.length} usuarios.`);
 }
