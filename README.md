@@ -133,14 +133,14 @@ Si el api se ha levantado correctamente tendremos las siguientes opciones:
 
 ```bash
 
-**POST /apiv1/loginJWT**
+POST /apiv1/loginJWT
 
 Este es el punto inicial obligatorio para utilizar el apiv1.  
 
 Nos devolvera el token Jwt con el que tendremos que realizar todas las llamadas a los endpoints del api. 
+```
 
-
-
+```bash
 **GET /apiv1/products**
 
 Este endpoint nos proporcionara los datos de los productos.
@@ -165,18 +165,13 @@ Si la llamada se realiza con un token caducado la respuesta sera un status 401 c
 
     }
 
-
-
 Si el token informado en la peticion es correcto el endpoint devolvera en formato json todos los productos.
 
 Otro ejemplo de url de consulta, con todos los parámetros del filtro, podría ser la siguiente:
 
-
-
 GET
 
 http://localhost:3000/apiv1/products?name=Moto%20campo&sale=true&price=2000-&tags=motor,lifestyle
-
 
 
 El precio permite las posibilidades indicadas en el documento de requisitos:
@@ -188,28 +183,20 @@ El precio permite las posibilidades indicadas en el documento de requisitos:
 * precio menor que: price=-10
 
 * precio entre dos valores: price=10-3000
+```
 
-
-
+```bash
 El funcionamiento de la autenticacion para ver los tags sera el mismo que para los productos. 
 
 Si realizamos una peticion con el token correcto al endpoint de consulta de tags se mostraran en formato Json los tags existentes en la bbdd:
 
-
-
 GET /apiv1/tags
+```
 
-
-
-
-
+```bash
 Para crear un nuevo producto en la base de datos realizaremos una llamada al siguiente endpoint teniendo en cuenta el funcionamiento del token descrito en los casos anteriores:
 
-
-
 POST /apiv1/newProduct
-
-
 
 Body
 
@@ -227,13 +214,9 @@ Body
 
 }
 
-
-
 Headers
 
     x-access-token: my-token
-
-
 
 A parte de crear un nuevo anuncio este endpoint llamara al microservicio /services/createThumbnailService.js
 
