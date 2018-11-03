@@ -49,7 +49,7 @@ npm install
 
 
 
-## Ejecucion
+## Ejecución
 
 ```
 
@@ -75,7 +75,7 @@ este paso arrancara la aplicación.
 
 En el archivo **.env.example** hay un ejemplo con los datos configurables por el usuario.
 
-Para el correcto funcionamiento de la aplicacion se debera crear un fichero **.env** con las mismas propiedades que tenemos en **.env.example** pero con los valores que necesitemos para la ejecucion de la aplicacion.
+Para el correcto funcionamiento de la aplicación se deberá crear un fichero **.env** con las mismas propiedades que tenemos en **.env.example** pero con los valores que necesitemos para la ejecución de la aplicación.
 
 
 
@@ -134,19 +134,19 @@ Si el api se ha levantado correctamente tendremos las siguientes opciones:
 ```bash
 
 POST /apiv1/loginJWT
-
+```
 Este es el punto inicial obligatorio para utilizar el apiv1.  
 
-Nos devolvera el token Jwt con el que tendremos que realizar todas las llamadas a los endpoints del api. 
-```
+Nos devuelve el token Jwt con el que tendremos que realizar todas las llamadas a los endpoints del api. 
+
 
 ```bash
-**GET /apiv1/products**
-
+GET /apiv1/products
+```
 Este endpoint nos proporcionara los datos de los productos.
 
 Si la llamada se realiza sin token la respuesta sera un status 401 con el mensaje:
-
+```bash
     {
 
         "success": false,
@@ -154,9 +154,9 @@ Si la llamada se realiza sin token la respuesta sera un status 401 con el mensaj
         "error": "no token provided"
 
     }
-
+```
 Si la llamada se realiza con un token caducado la respuesta sera un status 401 con el siguiente mensaje de error:
-
+```bash
     {
 
         "success": false,
@@ -164,15 +164,13 @@ Si la llamada se realiza con un token caducado la respuesta sera un status 401 c
         "error": "jwt expired"
 
     }
-
-Si el token informado en la peticion es correcto el endpoint devolvera en formato json todos los productos.
+```
+Si el token informado en la petición es correcto el endpoint devuelve todos los productos en formato json.
 
 Otro ejemplo de url de consulta, con todos los parámetros del filtro, podría ser la siguiente:
-
-GET
-
-http://localhost:3000/apiv1/products?name=Moto%20campo&sale=true&price=2000-&tags=motor,lifestyle
-
+```bash
+GET /apiv1/products?name=Moto%20campo&sale=true&price=2000-&tags=motor,lifestyle
+```
 
 El precio permite las posibilidades indicadas en el documento de requisitos:
 
@@ -183,19 +181,18 @@ El precio permite las posibilidades indicadas en el documento de requisitos:
 * precio menor que: price=-10
 
 * precio entre dos valores: price=10-3000
-```
 
+
+El funcionamiento de la autenticación para ver los tags sera el mismo que para los productos. 
+
+Si realizamos una petición con el token correcto al endpoint de consulta de tags se mostraran en formato Json los tags existentes en la bbdd:
 ```bash
-El funcionamiento de la autenticacion para ver los tags sera el mismo que para los productos. 
-
-Si realizamos una peticion con el token correcto al endpoint de consulta de tags se mostraran en formato Json los tags existentes en la bbdd:
-
 GET /apiv1/tags
 ```
 
-```bash
-Para crear un nuevo producto en la base de datos realizaremos una llamada al siguiente endpoint teniendo en cuenta el funcionamiento del token descrito en los casos anteriores:
 
+Para crear un nuevo producto en la base de datos realizaremos una llamada al siguiente endpoint teniendo en cuenta el funcionamiento del token descrito en los casos anteriores:
+```bash
 POST /apiv1/newProduct
 
 Body
@@ -217,30 +214,25 @@ Body
 Headers
 
     x-access-token: my-token
-
+```
 A parte de crear un nuevo anuncio este endpoint llamara al microservicio /services/createThumbnailService.js
 
-```
+### Servicio de creación de thumbnails
 
-### Servicio de creacion de thumbnails
+El api se apoya en un microservicio para la creación del thumbnail de cada nuevo producto. Este microservicio se encuentra en /services/createThumbnailService.js. Para que la creación de los thumbnails se ejecute correctamente debemos tener levantado este servicio, por ejemplo ejecutando el comando:
 
-
-
-El api se apoya en un microservicio para la creacion del thumbnail de cada nuevo producto. Este microservicio se encuentra en /services/createThumbnailService.js. Para que la creacion de los thumbnails se ejecute correctamente debemos tener levantado este servicio, por ejemplo ejecutando el comando:
-
-```   
-
+```bash
 node createThumbnailService.js
 
 ```
 
-cuando el endpoint de creacion de productos llame a este servicio se creara un thumbnail de la imagen del producto en el directorio /images/thumbnails/.
+cuando el endpoint de creación de productos llame a este servicio se creara un thumbnail de la imagen del producto en el directorio /images/thumbnails/.
 
 
 
 ### Web Nodepop
 
-Nodepop es una web de comercializacion de articulos de segunda mano localizada a Ingles y Español.
+Nodepop es una web de comercialización de artículos de segunda mano localizada a Ingles y Español.
 
 
 
@@ -252,25 +244,22 @@ Para acceder a ella una vez levantado el servidor tendremos que acceder a la url
 
 http://localhost:3000/
 
-
-
 ```
 
-Esto mostrara la home de la web, donde tendremos la posibilidad de autenticarnos para acceder a las paginas privadas de la aplicacion.
+Esto mostrara la home de la web, donde tendremos la posibilidad de autenticarnos para acceder a las paginas privadas de la aplicación.
+
+
+Al pulsar el boton de login podremos ver la pantalla de login donde podremos autenticarnos en la aplicación.
+
+En el scritp de inicialización de la bd se ha creado el usuario **user@example.com**/**1234**, para poder autenticarnos en la aplicación y realizar las pruebas que necesitemos.
 
 
 
-Al pulsar el boton de login podremos ver la pantalla de login donde podremos autenticarnos en la aplicacion.
-
-En el scritp de inicializacion de la bd se ha creado el usuario **user@example.com / 1234**, para poder logarnos en la aplicacion y realizar las pruebas que necesitemos.
+Una vez autenticados, en el header de la aplicación aparecerán el enlace a la pagina privada de la aplicación con los productos y un boton de logout.
 
 
 
-Una vez logados en el header de la aplicacion apareceran la pagina privada de la aplicacion con los productos y un boton de logout.
-
-
-
-La autenticacion se hace por session y dura dos dias, si authSession caduca nos aparecera la pagina de login de la aplicacion.
+La autenticación se hace por session y dura dos dias, si authSession caduca nos aparece la pagina de login de la aplicación.
 
 
 
