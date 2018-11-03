@@ -1,4 +1,4 @@
-# NodePop
+<img src="https://raw.githubusercontent.com/kiko2008/nodepop/master/public/logoNP.png" height="180" alt="Nodepop" />
 
 El desarrollo es un API y una pagina web para mostrar el funcionamiento de una tienda de artículos de segunda mano desarrollada con Node.js, Express.js, EJS y MongoDB.
 
@@ -149,7 +149,7 @@ Si necesitamos usar alguna imagen nueva deberíamos introducirla en este directo
 
 ## Version
 
- V1.0
+ V2.0
 
 ## License
 [![CC0](https://licensebuttons.net/p/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
