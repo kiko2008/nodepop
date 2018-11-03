@@ -14,7 +14,7 @@ const cote = require('cote');
 router.use(jwtAuth());
 
 /* GET all items will be showed. */
-router.post('/products', async (req, res) => {	
+router.get('/products', async (req, res) => {	
 	let queryProduct = setQueryProducts(req);
 	try {    
 		const responseResult = await ProductModel.findProducts(queryProduct, req.query.skip, req.query.limit, req.query.sort);		

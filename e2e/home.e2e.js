@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const app = require('../app');
 
-describe('Nodepop API tests', function(done) {
+describe('Nodepop API tests2', function(done) {
 
   var token = null;
 
@@ -18,9 +18,40 @@ describe('Nodepop API tests', function(done) {
       });
   });
 
-  it('should return 200', function() {
+  it('GET product should return 200', function(done) {
     request(app)
       .get('/apiv1/products')
-      .expect(200, done);
-  })
+      .set('x-access-token', token)  
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end(function(err, res) {
+        if (err) return done(err);
+        done();
+      });
+  });
+
+  it('GET tags should return 200', function(done) {
+    request(app)
+      .get('/apiv1/tags')
+      .set('x-access-token', token)  
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end(function(err, res) {
+        if (err) return done(err);
+        done();
+      });
+  });
+ 
+  it('POST newProduct should return 200', function(done) {
+    request(app)
+      .post('/apiv1/newProduct')
+      .set('x-access-token', token)  
+      .attach('imagen', './public/flagsIcons/spain.png')
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end(function(err, res) {
+        if (err) return done(err);
+        done();
+      });
+  });
 });
