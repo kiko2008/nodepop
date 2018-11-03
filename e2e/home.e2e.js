@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const app = require('../app');
 
-describe('Nodepop API tests2', function(done) {
+describe('Nodepop API tests', function(done) {
 
   var token = null;
 
