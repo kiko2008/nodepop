@@ -1,155 +1,330 @@
 <img src="https://raw.githubusercontent.com/kiko2008/nodepop/master/public/logoNP.png" height="180" alt="Nodepop" />
 
-El desarrollo es un API y una pagina web para mostrar el funcionamiento de una tienda de artículos de segunda mano desarrollada con Node.js, Express.js, EJS y MongoDB.
+
+El desarrollo es un API y una pagina web para mostrar el funcionamiento de una tienda de artículos de segunda mano desarrollada con Node.js, Express.js, COTÈ para los microservicios, EJS y MongoDB.
+
+
 
 Se ha intentado respetar el patron MVC en el que esta basado el framework express para node.
 
+
+
 ## Instalación
+
+
 
 Necesitamos tener instaladas en nuestro servidor las siguientes dependencias:
 
-```
-    cookie-parser
-    cross-env
-    debug
-    ejs
-    eslint
-    express
-    http-errors
-    mongoose
-    morgan
-```
-dentro del directorio raiz ejecutaremos:
-```bash
-npm install
+
+
 ```
 
-## Ejecucion
+    cookie-parser
+
+    cross-env
+
+    debug
+
+    ejs
+
+    eslint
+
+    express
+
+    http-errors
+
+    mongoose
+
+    morgan
+
 ```
+
 dentro del directorio raiz ejecutaremos:
+
 ```bash
-npm start
+
+npm install
+
 ```
+
+
+
+## Ejecucion
+
+```
+
+dentro del directorio raiz ejecutaremos:
+
+```bash
+
+npm start
+
+```
+
 este paso arrancara la aplicación.
+
+
+
 
 
 ## Desarrollo
 
+
+
 ### Inicialización de la base de datos
-Decido dejar el archivo .env con la cadena de conexión a la base de datos por no haber credenciales ni datos susceptibles de tratar con mayor seguridad.
+
+En el archivo **.env.example** hay un ejemplo con los datos configurables por el usuario.
+
+Para el correcto funcionamiento de la aplicacion se debera crear un fichero **.env** con las mismas propiedades que tenemos en **.env.example** pero con los valores que necesitemos para la ejecucion de la aplicacion.
+
+
 
 ```bash
+
 npm run installDB
+
 ```
-este paso **inicializara** la base de datos con una serie de registros para que se puede empezar a realizar las pruebas inmediatamente.
+
+este paso **inicializara** la base de datos con una serie de registros para que se pueda empezar a realizar las pruebas inmediatamente.
+
+
 
 ### Tarea de Calidad
 
+
+
 Para poder comprobar que no tenemos errores de calidad tenemos que lanzar la tarea qa configurada en el package.json del proyecto:
 
+
+
 ```bash
+
 npm run qa
+
 ```
+
+
 
 ### Levantar api en modo debug
 
+
+
 Para levantar el API y poder realizar las pruebas lanzaremos el siguiente comando:
 
+
+
 ```bash
+
 npm run dev
+
 ```
+
 este paso arrancara la aplicación en modo debug.
+
+
 
 ### Urls de prueba para el API REST
 
-Si el api se ha levantado correctamente podremos probarla lanzando la siguiente url en un navegador:
+
+
+Si el api se ha levantado correctamente tendremos las siguientes opciones:
+
+
 
 ```bash
-GET
-http://localhost:3000/apiv1/products
 
-```
-Esto devolverá en formato Json todos los productos
+**POST /apiv1/loginJWT**
+
+Este es el punto inicial obligatorio para utilizar el apiv1.  
+
+Nos devolvera el token Jwt con el que tendremos que realizar todas las llamadas a los endpoints del api. 
+
+
+
+**GET /apiv1/products**
+
+Este endpoint nos proporcionara los datos de los productos.
+
+Si la llamada se realiza sin token la respuesta sera un status 401 con el mensaje:
+
+    {
+
+        "success": false,
+
+        "error": "no token provided"
+
+    }
+
+Si la llamada se realiza con un token caducado la respuesta sera un status 401 con el siguiente mensaje de error:
+
+    {
+
+        "success": false,
+
+        "error": "jwt expired"
+
+    }
+
+
+
+Si el token informado en la peticion es correcto el endpoint devolvera en formato json todos los productos.
 
 Otro ejemplo de url de consulta, con todos los parámetros del filtro, podría ser la siguiente:
 
-```bash
+
+
 GET
+
 http://localhost:3000/apiv1/products?name=Moto%20campo&sale=true&price=2000-&tags=motor,lifestyle
-```
+
+
+
 El precio permite las posibilidades indicadas en el documento de requisitos:
+
 * precio exacto: price=10
+
 * precio mayor que: price=10-
+
 * precio menor que: price=-10
+
 * precio entre dos valores: price=10-3000
 
-En el caso de los tags se puede consultar por uno o varios valores separados por comas como se ve en el ejemplo.
+
+
+El funcionamiento de la autenticacion para ver los tags sera el mismo que para los productos. 
+
+Si realizamos una peticion con el token correcto al endpoint de consulta de tags se mostraran en formato Json los tags existentes en la bbdd:
 
 
 
-Para mostrar los tags existentes lanzaremos:
-```bash
-GET
-http://localhost:3000/apiv1/tags
-```
+GET /apiv1/tags
 
-Para crear un nuevo producto en la base de datos lanzaremos la siguiente operación:
-```bash
-POST
-http://localhost:3000/apiv1/newProduct
 
-JSON
+
+
+
+Para crear un nuevo producto en la base de datos realizaremos una llamada al siguiente endpoint teniendo en cuenta el funcionamiento del token descrito en los casos anteriores:
+
+
+
+POST /apiv1/newProduct
+
+
+
+Body
+
 {
+
+    "image": Elemento de tipo file con la nueva imagen del anuncio,
+
     "name": "nombre",
+
     "sale": true,
+
     "price": "10",
-    "photo": "mobile10.jpg",
+
     "tags": ["mobile"]
+
 }
 
+
+
+Headers
+
+    x-access-token: my-token
+
+
+
+A parte de crear un nuevo anuncio este endpoint llamara al microservicio /services/createThumbnailService.js
+
 ```
-### Urls de prueba para la web
-Si el api se ha levantado correctamente podremos probarla lanzando la siguiente url y se mostraran los resultados en una web de ejemplo:
+
+### Servicio de creacion de thumbnails
+
+
+
+El api se apoya en un microservicio para la creacion del thumbnail de cada nuevo producto. Este microservicio se encuentra en /services/createThumbnailService.js. Para que la creacion de los thumbnails se ejecute correctamente debemos tener levantado este servicio, por ejemplo ejecutando el comando:
+
+```   
+
+node createThumbnailService.js
+
+```
+
+cuando el endpoint de creacion de productos llame a este servicio se creara un thumbnail de la imagen del producto en el directorio /images/thumbnails/.
+
+
+
+### Web Nodepop
+
+Nodepop es una web de comercializacion de articulos de segunda mano localizada a Ingles y Español.
+
+
+
+Para acceder a ella una vez levantado el servidor tendremos que acceder a la url:
+
+
 
 ```bash
-GET
-http://localhost:3000/products
+
+http://localhost:3000/
+
+
 
 ```
-Esto mostrara todos los productos en la web Nodepop.
 
-Otro ejemplo de url de consulta, con todos los parámetros del filtro, podría ser la siguiente:
+Esto mostrara la home de la web, donde tendremos la posibilidad de autenticarnos para acceder a las paginas privadas de la aplicacion.
 
-```bash
-GET
-http://localhost:3000/products?name=Moto%20campo&sale=true&price=2000-&tags=motor,lifestyle
-```
-Esta operación mostrara los resultados del a consulta en la web Nodepop.
 
-Para mostrar los tags existentes lanzaremos:
-```bash
-GET
-http://localhost:3000/tags
-```
+
+Al pulsar el boton de login podremos ver la pantalla de login donde podremos autenticarnos en la aplicacion.
+
+En el scritp de inicializacion de la bd se ha creado el usuario **user@example.com / 1234**, para poder logarnos en la aplicacion y realizar las pruebas que necesitemos.
+
+
+
+Una vez logados en el header de la aplicacion apareceran la pagina privada de la aplicacion con los productos y un boton de logout.
+
+
+
+La autenticacion se hace por session y dura dos dias, si authSession caduca nos aparecera la pagina de login de la aplicacion.
+
+
 
 ### Imagenes
-Se han introducido las siguientes imagenes en el directorio **/public/images/**:
+
+Se han introducido las siguientes imagenes en el directorio **/public/images/**, para que los anuncios las muestren correctamente:
+
 ```
+
 lifestyle1.jpg lifestyle2.jpg lifestyle3.jpg lifestyle4.jpg lifestyle5.jpg lifestyle6.jpg lifestyle7.jpg lifestyle8.jpg lifestyle9.jpg lifestyle10.jpg
+
+
 
 mobile1.jpg mobile2.jpg mobile3.jpg mobile4.jpg mobile5.jpg mobile6.jpg mobile7.jpg mobile8.jpg mobile9.jpg mobile10.jpg mobile11.jpg mobile12.jpg mobile13.jpg mobile14.jpg mobile15.jpg mobile16.jpg mobile17.jpg mobile18.jpg mobile19.jpg mobile20.jpg
 
+
+
 motor1.jpg motor2.jpg motor3.jpg motor4.jpg motor5.jpg motor6.jpg
+
 motor7.jpg motor8.jpg motor9.jpg motor10.jpg motor11.jpg motor12.jpg motor13.jpg motor14.jpg motor15.jpg motor16.jpg motor17.jpg motor18.jpg motor19.jpg motor20.jpg motor21.jpg motor22.jpg motor23.jpg motor24.jpg motor25.jpg motor26.jpg motor27.jpg motor28.jpg motor29.jpg motor30.jpg
 
+
+
 work1.jpg work2.jpg work3.jpg work4.jpg
+
 ```
 
-Si necesitamos usar alguna imagen nueva deberíamos introducirla en este directorio para que la aplicación pueda mostrarla en la web.
+
 
 ## Version
 
- V2.0
+
+
+ V1.0
+
+
 
 ## License
+
 [![CC0](https://licensebuttons.net/p/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
