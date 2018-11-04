@@ -9,7 +9,8 @@
             <% if (items.length === 0) {%>
                 <span>No hay productos que coincidan con la busqueda</span>
             <%} else {%>    
-                <% items.forEach((item) => { %>
+                <% items.forEach((item) => { 
+                    if(item.name !== undefined) {%>
                     <article>
                         <img src="<%= item.photo %>">  
                         <div>
@@ -18,7 +19,8 @@
                             <p><span>[</span><%= item.tags %><span>]</span></p>
                         </div>            
                     </article> 
-                <% }) %>
+                <% } 
+                }) %>
             <%}%>             
         <%}%>
     </div>
