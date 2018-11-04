@@ -305,7 +305,7 @@ El modulo sirve para generar la letra del nif, pasando por parametro el numero d
 
 La url del repositorio de git es:
 
-    <https://github.com/kiko2008/niflettergenerator>
+[https://github.com/kiko2008/niflettergenerator]: https://github.com/kiko2008/niflettergenerator
 
 
 
