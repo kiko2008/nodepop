@@ -103,6 +103,14 @@ npm run qa
 
 ```
 
+### Tarea de Test
+
+Con el comando:
+```bash
+npm run test
+```
+
+Lanzaremos los test e2e del apiv1.
 
 
 ### Levantar api en modo debug
@@ -289,6 +297,16 @@ work1.jpg work2.jpg work3.jpg work4.jpg
 
 ```
 
+
+## BONUS TRACK! - Crear un módulo público
+
+Se ha publicado en npm el modulo niflettergen.
+El modulo sirve para generar la letra del nif, pasando por parametro el numero de identificacion.
+
+La url del repositorio de git es:
+```bash
+    https://github.com/kiko2008/niflettergenerator
+```
 
 
 ## Version

@@ -46,7 +46,7 @@ describe('Nodepop API tests', function(done) {
         request(app)
             .post('/apiv1/newProduct')
             .set('x-access-token', token)  
-            .attach('imagen', './public/flagsIcons/spain.png')
+            .attach('image', './public/flagsIcons/spain.png')
             .expect('Content-Type', /json/)
             .expect(200)
             .end(function(err, res) {
