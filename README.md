@@ -48,25 +48,6 @@ npm install
 ```
 
 
-
-## Ejecución
-
-```
-
-dentro del directorio raiz ejecutaremos:
-
-```bash
-
-npm start
-
-```
-
-este paso arrancara la aplicación.
-
-
-
-
-
 ## Desarrollo
 
 
@@ -86,6 +67,20 @@ npm run installDB
 ```
 
 este paso **inicializara** la base de datos con una serie de registros para que se pueda empezar a realizar las pruebas inmediatamente.
+
+## Ejecución
+
+```
+
+dentro del directorio raiz ejecutaremos:
+
+```bash
+
+npm start
+
+```
+
+este paso arrancara la aplicación.
 
 
 

@@ -47,7 +47,7 @@ router.post(namedRoutes.newProduct,  upload.single('image') , async (req, res) =
 
     // Call microservice for create thumbnail
     createThumbnailRequester.send({
-		type: 'createThumbnail',
+        type: 'createThumbnail',
         file: req.file
     }, res => {
         console.log(`Create thumbnail --> ${res}`, Date.now());
