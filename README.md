@@ -165,6 +165,8 @@ Si la llamada se realiza con un token caducado la respuesta sera un status 401 c
 
     }
 ```
+La duración del token es configurable mediante una constante del fichero .env.
+
 Si el token informado en la petición es correcto, el endpoint devuelve todos los productos en formato json.
 
 Otro ejemplo de url de consulta, con todos los parámetros del filtro, podría ser la siguiente:
