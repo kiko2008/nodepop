@@ -304,8 +304,8 @@ Se ha publicado en npm el modulo niflettergen.
 El modulo sirve para generar la letra del nif, pasando por parametro el numero de identificacion.
 
 La url del repositorio de git es:
-
-[GitHub](ttps://github.com/kiko2008/niflettergenerator)
+https://github.com/kiko2008/niflettergenerator
+[GitHub]
 
 
 
