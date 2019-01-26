@@ -137,10 +137,18 @@ Si el api se ha levantado correctamente tendremos las siguientes opciones:
 ```bash
 
 POST /apiv1/loginJWT
+
+body :
+
+{
+    "email":"user@example.com","password":"1234"
+}
 ```
 Este es el punto inicial obligatorio para utilizar el apiv1.  
 
 Nos devuelve el token Jwt con el que tendremos que realizar todas las llamadas a los endpoints del api. 
+
+A partir de la obtención del token todas las llamadas deberán llevar la cabecera x-access-token con el token correcto.
 
 
 ```bash
@@ -210,7 +218,7 @@ Body
 
     "sale": true,
 
-    "price": "10",
+    "price": "10",  
 
     "tags": ["mobile"]
 
@@ -256,7 +264,7 @@ Esto mostrara la home de la web, donde tendremos la posibilidad de autenticarnos
 
 Al pulsar el boton de login podremos ver la pantalla de login donde podremos autenticarnos en la aplicación.
 
-En el scritp de inicialización de la bd se ha creado el usuario **user@example.com/1234**, para poder autenticarnos en la aplicación y realizar las pruebas que necesitemos.
+En el script de inicialización de la bd se ha creado el usuario **user@example.com/1234**, para poder autenticarnos en la aplicación y realizar las pruebas que necesitemos.
 
 
 
@@ -296,13 +304,21 @@ work1.jpg work2.jpg work3.jpg work4.jpg
 ## BONUS TRACK! - Crear un módulo público
 
 Se ha publicado en npm el modulo niflettergen.
-El modulo sirve para generar la letra del nif, pasando por parametro el numero de identificacion.
+El modulo sirve para generar la letra del nif, pasando por parametro el numero de identificación.
 
 La url del repositorio de git es:
 https://github.com/kiko2008/niflettergenerator
 [GitHub]
 
 
+
+## DESPLIEGUE en AWS
+
+La aplicación se encuentra desplegada en un servidor de AWS.
+Se puede probar en la dirección:
+https://www.node.franfernandezfullstack.es/
+
+En la ip http://18.217.253.219/ se puede comprobar el despliegue de la plantilla de bootstrap.
 
 ## Version
 
@@ -315,3 +331,4 @@ https://github.com/kiko2008/niflettergenerator
 ## License
 
 [![CC0](https://licensebuttons.net/p/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
+
