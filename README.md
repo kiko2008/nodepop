@@ -318,7 +318,7 @@ La aplicación se encuentra desplegada en un servidor de AWS.
 Se puede probar en la dirección:
 https://www.node.franfernandezfullstack.es/
 
-En la ip https://18.217.253.219/ se puede comprobar el despliegue de la plantilla de bootstrap.
+En la ip http://18.217.253.219/ se puede comprobar el despliegue de la plantilla de bootstrap.
 
 ## Version
 
