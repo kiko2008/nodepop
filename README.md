@@ -301,7 +301,7 @@ work1.jpg work2.jpg work3.jpg work4.jpg
 ```
 
 
-## BONUS TRACK! - Crear un módulo público
+## Crear un módulo público
 
 Se ha publicado en npm el modulo niflettergen.
 El modulo sirve para generar la letra del nif, pasando por parametro el numero de identificación.
@@ -317,8 +317,6 @@ https://github.com/kiko2008/niflettergenerator
 La aplicación se encuentra desplegada en un servidor de AWS.
 Se puede probar en la dirección:
 https://www.node.franfernandezfullstack.es/
-
-En la ip http://18.217.253.219/ se puede comprobar el despliegue de la plantilla de bootstrap.
 
 ## Version
 
