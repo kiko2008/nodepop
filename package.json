@@ -10,7 +10,7 @@
     "test": "mocha **/*.e2e.js"
   },
   "dependencies": {
-    "bcrypt": "^3.0.2",
+    "bcrypt": "^5.0.0",
     "connect-mongo": "^2.0.1",
     "cookie-parser": "~1.4.3",
     "cote": "^0.18.0",
